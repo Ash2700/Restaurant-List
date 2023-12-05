@@ -1,26 +1,27 @@
 const express = require('express')
 const app = express()
 const port = 3000
-const {engine} = require('express-handlebars')
+const { engine } = require('express-handlebars')
+const restaurants = require('./public/jsons/restaurant.json').results
 
 app.use(express.static('public'))
-app.engine('.hbs',engine({extname: '.hbs'}))
+app.engine('.hbs', engine({ extname: '.hbs' }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
 
-app.get ( '/', (req, res) =>{
-  res.redirect ("/restaurantlist")
+app.get('/', (req, res) => {
+  res.redirect("/restaurantlist")
 })
 
-app.get( '/restaurantlist' ,(req, res)=> {
-  res.render('index')
+app.get('/restaurantlist', (req, res) => {
+  res.render('index', { restaurants: restaurants })
 })
 
 app.get('/restaurantlist/:id', (req, res) => {
-  const id =req.params.id
+  const id = req.params.id
   res.send(`read movie :${id}`)
 })
 
-app.listen( port ,()=>{
-  console.log( `express server is running HTTP://localhosting:${port}`)
+app.listen(port, () => {
+  console.log(`express server is running HTTP://localhosting:${port}`)
 })
