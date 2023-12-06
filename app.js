@@ -14,14 +14,16 @@ app.get('/', (req, res) => {
 })
 
 app.get('/restaurantlist', (req, res) => {
-  res.render('index', { restaurants: restaurants })
+  res.render('index', { restaurants })
 })
 
-app.get('/restaurantlist/:id', (req, res) => {
+app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
-  res.send(`read movie :${id}`)
+  const detail = restaurants.find((items) => items.id.toString() === id
+  )
+  res.render('detail',{ detail:detail })
 })
 
 app.listen(port, () => {
-  console.log(`express server is running HTTP://localhosting:${port}`)
+  console.log(`express server is running HTTP://localhost:${port}`)
 })
