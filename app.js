@@ -10,18 +10,27 @@ app.set('view engine', '.hbs')
 app.set('views', './views')
 
 app.get('/', (req, res) => {
-  res.redirect("/restaurantlist")
+  res.redirect("/restaurantList")
 })
 
-app.get('/restaurantlist', (req, res) => {
-  res.render('index', { restaurants })
+app.get('/restaurantList', (req, res) => {
+  const keyword = req.query.keyword?.trim();
+  const matchedRestaurant = keyword ? restaurants.filter((items) =>
+    Object.values(items).some((property) => {
+      if (typeof property === 'string') {
+        return property.toLowerCase().includes(keyword.toLowerCase())
+      }
+      return false
+    })
+  ) : restaurants
+  res.render('index', { restaurants: matchedRestaurant, keyword })
 })
 
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   const detail = restaurants.find((items) => items.id.toString() === id
   )
-  res.render('detail',{ detail:detail })
+  res.render('detail', { detail })
 })
 
 app.listen(port, () => {
