@@ -23,7 +23,9 @@ app.get('/restaurantList', (req, res) => {
       return false
     })
   ) : restaurants
-  res.render('index', { restaurants: matchedRestaurant, keyword })
+  const finalyDate = matchedRestaurant.length > 0 ? matchedRestaurant:restaurants
+  res.render('index', { restaurants: finalyDate, keyword })
+})
 })
 
 app.get('/restaurants/:id', (req, res) => {
