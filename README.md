@@ -7,9 +7,11 @@
     <li>點擊任何餐廳，可查看餐廳的詳細資料，如店名、地址、電話、描述</li>
     <li>可以使用中英文搜尋餐廳名聲和類別及描述</li>
   </ul>
-<img href ="demo_jp/餐廳清單擷取1.JPG">
-<img href ="demo_jp/餐廳清單擷取2.JPG">
-<img href ="demo_jp/餐廳清單擷取3.JPG">
+##Demo View 
+
+![image](https://github.com/Ash2700/Restaurant-List/blob/668a932627bb8906ca7ec4df7d88f470e17c57d3/demo_jp/%E9%A4%90%E5%BB%B3%E6%B8%85%E5%96%AE%E6%93%B7%E5%8F%961.JPG)
+![image](https://github.com/Ash2700/Restaurant-List/blob/b9c9170dfadcb7c68804521053a55b36e5a24675/demo_jp/%E9%A4%90%E5%BB%B3%E6%B8%85%E5%96%AE%E6%93%B7%E5%8F%962.JPG)
+![image](https://github.com/Ash2700/Restaurant-List/blob/b9c9170dfadcb7c68804521053a55b36e5a24675/demo_jp/%E9%A4%90%E5%BB%B3%E6%B8%85%E5%96%AE%E6%93%B7%E5%8F%963.JPG)
 
   ## [Installation - 安裝]
 
