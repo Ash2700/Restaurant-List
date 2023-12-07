@@ -7,8 +7,9 @@
     <li>點擊任何餐廳，可查看餐廳的詳細資料，如店名、地址、電話、描述</li>
     <li>可以使用中英文搜尋餐廳名聲和類別及描述</li>
   </ul>
-
-
+<img href ="demo_jp/餐廳清單擷取1.JPG">
+<img href ="demo_jp/餐廳清單擷取2.JPG">
+<img href ="demo_jp/餐廳清單擷取3.JPG">
 
   ## [Installation - 安裝]
 
