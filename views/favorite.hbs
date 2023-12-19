@@ -1,0 +1,46 @@
+
+  <form action="/submitRestaurantData" method ="POST" class="row gy-2 gx-3 align-items-center" style="background-color:rgb(236, 192, 129) ;">
+<div class="w-50 container mt-5">
+    <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳名稱</span>
+    <input type="text" name = "name" value="{{name}}" aria-label="First name" class="form-control">
+  </div>
+
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳其他名稱</span>
+    <input type="text" aria-label="First name" class="form-control" name = "name_en" value="{{name_en}}">
+  </div>
+
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">料理分類</span>
+    <input type="text" aria-label="First name" class="form-control"name = "category" value="{{category}}">
+  </div>
+
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳圖片網址</span>
+    <input type="text" aria-label="First name" class="form-control" name = "image" value="{{image}}">
+  </div>
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳地址</span>
+    <input type="text" aria-label="First name" class="form-control"name = "location" value="{{location}}">
+  </div>
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳電話</span>
+    <input type="text" aria-label="First name" class="form-control" name = "phone" value="{{phone}}">
+  </div>
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">google map</span>
+    <input type="text" aria-label="First name" class="form-control"name = "google_map" value="{{google_map}}">
+  </div>
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳特色描述</span>
+    <input type="text" aria-label="First name" class="form-control"name = "description" value="{{description}}">
+  </div>
+
+<div class="input-group-append">
+  <button class="btn btn-major" type="add-btn" id="search-button"> submit <i class="fas fa-search"></i>
+  </button>
+</div>
+</div>
+  </form>
+  
