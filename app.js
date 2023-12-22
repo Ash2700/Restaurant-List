@@ -9,7 +9,7 @@ app.engine('.hbs', engine({ extname: '.hbs' }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
 app.use(express.json())
-app.use(express.urlencoded({extended: true}))
+app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
   res.redirect("/restaurantList")
@@ -18,12 +18,12 @@ app.get('/', (req, res) => {
 app.get('/restaurantList', (req, res) => {
   const keyword = req.query.keyword?.trim();
   const matchedRestaurant = keyword ? filterRestaurants(keyword)
-   : restaurants
-  const finalyDate = matchedRestaurant.length > 0 ? matchedRestaurant:restaurants
+    : restaurants
+  const finalyDate = matchedRestaurant.length > 0 ? matchedRestaurant : restaurants
   res.render('index', { restaurants: finalyDate, keyword })
 })
 
-function filterRestaurants(keyword){
+function filterRestaurants(keyword) {
   restaurants.filter((items) =>
     Object.values(items).some((property) => {
       if (typeof property === 'string') {
@@ -44,21 +44,24 @@ app.get('/restaurants/:id', (req, res) => {
   res.render('detail', { detail })
 })
 
-app.get('/addFavorite',(req,res) => {
-  res.render('favorite')
+const categories = restaurants.map(item => item.category)
+
+app.get('/addFavorite', (req, res) => {
+  res.render('favorite',{categories})
 })
-app.post('/submitRestaurantData',(req, res, next)=> {
-  const {name,
-  name_en,
-  category,
-  image,
-  location,
- phone,
- google_map,
-  description}=req.body
-  const id =restaurants.length+1
-  const newRestaurant ={
-    id ,
+
+app.post('/submitRestaurantData', (req, res, next) => {
+  const { name,
+    name_en,
+    category,
+    image,
+    location,
+    phone,
+    google_map,
+    description } = req.body
+  const id = restaurants.length + 1
+  const newRestaurant = {
+    id,
     name,
     name_en,
     category,
@@ -69,7 +72,8 @@ app.post('/submitRestaurantData',(req, res, next)=> {
     description
   };
   restaurants.push(newRestaurant)
-  res.render('favorite')
+  console.log(newRestaurant)
+  res.redirect('/addFavorite')
 })
 
 
