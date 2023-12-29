@@ -3,6 +3,9 @@ const app = express()
 const port = 3000
 const { engine } = require('express-handlebars')
 const restaurants = require('./public/jsons/restaurant.json').results
+const {Sequelize} = require('sequelize')
+const db =require('./models')
+const restaurant = db.restaurant
 
 app.use(express.static('public'))
 app.engine('.hbs', engine({ extname: '.hbs' }))
@@ -12,10 +15,10 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 
 app.get('/', (req, res) => {
-  res.redirect("/restaurantList")
+  res.redirect("/restaurants")
 })
 
-app.get('/restaurantList', (req, res) => {
+app.get('/restaurants', (req, res) => {
   const keyword = req.query.keyword?.trim();
   const matchedRestaurant = keyword ? filterRestaurants(keyword)
     : restaurants
@@ -24,18 +27,15 @@ app.get('/restaurantList', (req, res) => {
 })
 
 function filterRestaurants(keyword) {
-  restaurants.filter((items) =>
-    Object.values(items).some((property) => {
-      if (typeof property === 'string') {
-        return property.toLowerCase().includes(keyword.toLowerCase())
+  return restaurants.filter((items) =>
+    Object.keys(items).some((property) => {
+      if (property === 'name' || property === 'name_en' || property === 'category') {
+        return items[property].toLowerCase().includes(keyword.toLowerCase())
       }
       return false
     })
   )
 }
-
-
-
 
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
@@ -46,8 +46,8 @@ app.get('/restaurants/:id', (req, res) => {
 
 const categories = restaurants.map(item => item.category)
 
-app.get('/addFavorite', (req, res) => {
-  res.render('favorite',{categories})
+app.get('/restaurants/add', (req, res) => {
+  res.render('favorite', { categories })
 })
 
 app.post('/submitRestaurantData', (req, res, next) => {
