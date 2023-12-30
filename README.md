@@ -53,5 +53,12 @@ express server is running on http://localhost:3000
 ```
 最後，請開啟任一瀏覽器瀏覽器輸入 [http://localhost:3000](http://localhost:3000) ，就可以開始瀏覽餐廳清單！
 
+
+### 想要增加的功能
+<ul>
+<li>增加收藏功能</li>
+
+</ul>
+
 <hr>
 Contributor : Ash2700

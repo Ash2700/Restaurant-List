@@ -1,0 +1,51 @@
+
+  <form action="/submitRestaurantData" method ="POST" class="row gy-2 gx-3 align-items-center" style="background-color:rgb(236, 192, 129) ;">
+<div class="w-50 container mt-5">
+    <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳名稱</span>
+    <input type="text" name = "name" value="{{name}}" aria-label="First name" class="form-control" placeholder ='請輸入餐廳名稱'>
+  </div>
+
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳其他名稱</span>
+    <input type="text" aria-label="First name" class="form-control" name = "name_en" value="{{name_en}}" placeholder ='請輸入中文之外的名稱'>
+  </div>
+
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">料理分類</span>
+    <select class="form-select" aria-label="Default select example" name = "category" >
+      <option >選擇一個分類</option>
+      {{#each categories}}
+      <option  value="{{this}}" >{{this}}</option>
+     {{/each}}
+    </select>
+  </div>
+
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳圖片網址</span>
+    <input type="url" aria-label="First name" class="form-control" name = "image" value="{{image}}"placeholder ='只能輸入圖片連結'>
+  </div>
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳地址</span>
+    <input type="text" aria-label="First name" class="form-control"name = "location" value="{{location}}" placeholder ='請輸入餐廳地址'>
+  </div>
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳電話</span>
+    <input type="tel" aria-label="First name" class="form-control" name = "phone" value="{{phone}}" placeholder ='輸入餐廳電話'>
+  </div>
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">google map</span>
+    <input type="url" aria-label="First name" class="form-control"name = "google_map" value="{{google_map}}" placeholder ='只能輸入網址，輸入google map的連結'>
+  </div>
+  <div class="input-group mb-2 ">
+    <span class="input-group-text">餐廳特色描述</span>
+    <input type="text" aria-label="First name" class="form-control"name = "description" value="{{description}}" placeholder ='輸入對於餐廳特色描述'>
+  </div>
+
+<div class="input-group-append">
+  <button class="btn btn-major" type="submit" id="search-button"> submit <i class="fas fa-search"></i>
+  </button>
+</div>
+</div>
+  </form>
+  
