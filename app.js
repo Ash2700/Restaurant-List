@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const port = 3000
 const { engine } = require('express-handlebars')
-const restaurants = require('./public/jsons/restaurant.json').results
-const {Sequelize} = require('sequelize')
-const db =require('./models')
+// const restaurants = require('./public/jsons/restaurant.json').results
+const { Sequelize } = require('sequelize')
+const db = require('./models')
 const restaurant = db.restaurant
 
 app.use(express.static('public'))
@@ -20,10 +20,19 @@ app.get('/', (req, res) => {
 
 app.get('/restaurants', (req, res) => {
   const keyword = req.query.keyword?.trim();
-  const matchedRestaurant = keyword ? filterRestaurants(keyword)
-    : restaurants
-  const finalyDate = matchedRestaurant.length > 0 ? matchedRestaurant : restaurants
-  res.render('index', { restaurants: finalyDate, keyword })
+  // const matchedRestaurant = keyword ? filterRestaurants(keyword)
+  //   : restaurants
+  // const finalyDate = matchedRestaurant.length > 0 ? matchedRestaurant : restaurants
+  return restaurant.findAll({
+    attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
+    raw: true
+  })
+    .then((restaurant_sqlData) => {
+      res.render('index', {
+        restaurants: restaurant_sqlData, keyword
+      })
+    })
+    .catch((err) =>{console.log(err)})
 })
 
 function filterRestaurants(keyword) {
@@ -39,12 +48,15 @@ function filterRestaurants(keyword) {
 
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
-  const detail = restaurants.find((items) => items.id.toString() === id
-  )
-  res.render('detail', { detail })
+  return restaurant.findByPk(id,{
+    attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
+    raw: true
+  })
+  .then((detail)=>{res.render('detail', { detail })})
+  .catch((err)=>{console.log(err)})
 })
 
-const categories = restaurants.map(item => item.category)
+// const categories = restaurants.map(item => item.category)
 
 app.get('/restaurants/add', (req, res) => {
   res.render('favorite', { categories })
