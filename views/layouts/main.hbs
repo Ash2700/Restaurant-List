@@ -20,13 +20,20 @@
             width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
           我的餐廳清單
         </a>
-        <a href="./restaurants/add">增加收藏</a>
-        <a href="./restaurants/edit">修改</a>
+        {{!-- //增加按鈕 --}}
+        <div>
+          <a class="btn btn-secondary" href="/restaurants/add" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            增加收藏
+          </a>
+          <a class="btn btn-secondary" href="/restaurants/edit" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            修改
+          </a>
+        </div>
       </div>
     </nav>
-
     <div class="banner"></div>
-
   </header>
 
   {{{body}}}
