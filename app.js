@@ -32,7 +32,7 @@ app.get('/restaurants', (req, res) => {
         restaurants: restaurant_sqlData, keyword
       })
     })
-    .catch((err) =>{console.log(err)})
+    .catch((err) => { console.log(err) })
 })
 
 function filterRestaurants(keyword) {
@@ -45,47 +45,54 @@ function filterRestaurants(keyword) {
     })
   )
 }
+const getCategoriesFormDatabase = async () => {
+  try {
+    const data = Object.values(await restaurant.findAll({ attributes: ['category'], raw: true }))
+    return data.map((item) => item.category)    
+  } catch (error) {
+    console.error('發生錯誤', error)
+    throw error
+  }
+}
+const getUniqueCategories = async()=>{
+  try{
+    const categoriesArray = await getCategoriesFormDatabase();
+    const uniqueArray =[...new Set(categoriesArray)];
+    return uniqueArray;
+  } catch(error){
+    console.error('發生錯誤',error);
+    throw error;
+  }
+}
 
+app.get('/restaurants/add', async(req, res) => {
+  try{
+    const categories =  await getUniqueCategories()
+    console.log(categories)
+    res.render('favorite',{categories:categories})
+  }catch(error){
+    console.error('發生錯誤',error)
+  }
+  
+})
+app.get('/restaurants/edit',(req,res)=>{
+
+})
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
-  return restaurant.findByPk(id,{
+  return restaurant.findByPk(id, {
     attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
     raw: true
   })
-  .then((detail)=>{res.render('detail', { detail })})
+    .then((detail) => { res.render('detail', { detail }) })
+    .catch((err) => { console.log(err) })
+})
+
+app.post('/restaurants', (req, res) => {
+  const body= req.body
+  return restaurant.create(body)
+  .then(()=>res.redirect('/restaurants/add'))
   .catch((err)=>{console.log(err)})
-})
-
-// const categories = restaurants.map(item => item.category)
-
-app.get('/restaurants/add', (req, res) => {
-  res.render('favorite', { categories })
-})
-
-app.post('/submitRestaurantData', (req, res, next) => {
-  const { name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    description } = req.body
-  const id = restaurants.length + 1
-  const newRestaurant = {
-    id,
-    name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    description
-  };
-  restaurants.push(newRestaurant)
-  console.log(newRestaurant)
-  res.redirect('/addFavorite')
 })
 
 
