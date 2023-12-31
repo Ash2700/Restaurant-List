@@ -110,11 +110,13 @@ app.put('/restaurants/edit/:id',(req,res)=>{
   .then(()=> res.redirect(`/restaurants/edit/:${id}`))
   .catch((err)=>{console.log(err)})
 })
-app.delete('/restaurant/edit/:id',(req, res)=>{
+
+app.delete('/restaurants/edit/:id',(req, res)=>{
   const id = req.params.id
   return restaurant.destroy({where:{id}})
   .then(()=>{res.redirect('/restaurants/edit')})
 })
+
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
   return findIdFormDatabase(id)

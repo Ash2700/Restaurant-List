@@ -46,6 +46,7 @@
               <button class="btn btn-primary" type="submit">更新資料</button>
             </div>
           </form>
+          {{!-- 增加刪除功能 --}}
           <form class="mt-3" action="/restaurants/edit/{{restaurant.id}}?_method=DELETE" method="post">
             <div class="d-grid gap-2">
               <button class="btn btn-danger" type="submit">刪除</button>
