@@ -1,11 +1,22 @@
 # project : 我的餐廳清單
-使用Node.js + Express 打造的餐廳清單網站, 收錄了許多家餐廳的相關資訊, 給喜歡收藏美食的愛好者可以進行收藏和搜尋。
+使用下列
+Node.js 
+Express
+Express-handlebars
+Sequelize
+Sequelize-cli
+mysql2
+method-override
+打造的餐廳清單網站, 收錄了許多家餐廳的相關資訊, 給喜歡收藏美食的愛好者可以進行收藏和搜尋。
 
 # Features : 
   <ul>
     <li>瀏覽收藏的餐廳全名單，包含店名、類別、圖片、和評分</li>
     <li>點擊任何餐廳，可查看餐廳的詳細資料，如店名、地址、電話、描述</li>
-    <li>可以使用中英文搜尋餐廳名聲和類別及描述</li>
+    <li>可以使用中英文搜尋餐廳名稱和類別</li>
+    <li>可以增加收藏餐廳名單</li>
+    <li>可以更新收藏餐廳名單</li>
+    <li>可以刪除收藏餐廳名單</li>
   </ul>
   
 # Demo View
@@ -54,11 +65,7 @@ express server is running on http://localhost:3000
 最後，請開啟任一瀏覽器瀏覽器輸入 [http://localhost:3000](http://localhost:3000) ，就可以開始瀏覽餐廳清單！
 
 
-### 想要增加的功能
-<ul>
-<li>增加收藏功能</li>
 
-</ul>
 
 <hr>
 Contributor : Ash2700
