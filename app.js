@@ -2,9 +2,9 @@ const express = require('express')
 const app = express()
 const port = 3000
 const { engine } = require('express-handlebars')
-const restaurants = require('./public/jsons/restaurant.json').results
-const {Sequelize} = require('sequelize')
-const db =require('./models')
+const methodOverride = require('method-override')
+const { Sequelize } = require('sequelize')
+const db = require('./models')
 const restaurant = db.restaurant
 
 app.use(express.static('public'))
@@ -13,6 +13,7 @@ app.set('view engine', '.hbs')
 app.set('views', './views')
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
+app.use(methodOverride('_method'))
 
 app.get('/', (req, res) => {
   res.redirect("/restaurants")
@@ -20,60 +21,124 @@ app.get('/', (req, res) => {
 
 app.get('/restaurants', (req, res) => {
   const keyword = req.query.keyword?.trim();
-  const matchedRestaurant = keyword ? filterRestaurants(keyword)
-    : restaurants
-  const finalyDate = matchedRestaurant.length > 0 ? matchedRestaurant : restaurants
-  res.render('index', { restaurants: finalyDate, keyword })
+
+  const matchedRestaurant = keyword ? filterFormDatabaseByKeyword(keyword)
+    : findAllFormDatabase()
+  return matchedRestaurant.then((restaurant_sqlData) => {
+    res.render('index', {
+      restaurants: restaurant_sqlData, keyword
+    })
+  })
+    .catch((err) => { console.log(err) })
 })
 
-function filterRestaurants(keyword) {
-  return restaurants.filter((items) =>
-    Object.keys(items).some((property) => {
-      if (property === 'name' || property === 'name_en' || property === 'category') {
-        return items[property].toLowerCase().includes(keyword.toLowerCase())
-      }
-      return false
-    })
-  )
+async function filterFormDatabaseByKeyword(keyword) {
+  const Op=Sequelize.Op
+  return await restaurant.findAll({
+      attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
+      raw: true,
+      where: {
+        [Op.or]:[
+          { name: {[Op.substring]: `${keyword}`}  },
+          { name_en: {[Op.substring]: `${keyword}`} },
+          { category: {[Op.substring]: `${keyword}`} },
+        ]
+      
+    }
+  })
 }
+//撈出分類資料
+const getCategoriesFormDatabase = async () => {
+  try {
+    const data = Object.values(await restaurant.findAll({ attributes: ['category'], raw: true }))
+    return data.map((item) => item.category)
+  } catch (error) {
+    console.error('發生錯誤', error)
+    throw error
+  }
+}
+//篩選出單一資料
+const getUniqueCategories = async () => {
+  try {
+    const categoriesArray = await getCategoriesFormDatabase();
+    const uniqueArray = [...new Set(categoriesArray)];
+    return uniqueArray;
+  } catch (error) {
+    console.error('發生錯誤', error);
+    throw error;
+  }
+}
+//撈全部屬性資料出來
+async function findAllFormDatabase() {
+  return await restaurant.findAll({
+    attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
+    raw: true
+  })
+}
+//藉由ID找資料
+async function findIdFormDatabase(id) {
+  return await restaurant.findByPk(id, {
+    attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
+    raw: true
+  })
+}
+//home page
+app.get('/restaurants/add', async (req, res) => {
+  try {
+    const categories = await getUniqueCategories()
+    console.log(categories)
+    res.render('favorite', { categories: categories })
+  } catch (error) {
+    console.error('發生錯誤', error)
+  }
 
+})
+//顯示編輯按鈕
+app.get('/restaurants/edit', (req, res) => {
+  const keyword = req.query.keyword?.trim();
+  return findAllFormDatabase()
+    .then((restaurant_sqlData) => {
+      res.render('showEditButton', {
+        restaurants: restaurant_sqlData, keyword
+      })
+    })
+    .catch((err) => { console.log(err) })
+})
+
+//編輯資料頁
+app.get('/restaurants/edit/:id', (req, res) => {
+  const id = req.params.id
+  return findIdFormDatabase(id)
+    .then((detail) => { res.render('detailEdit', { detail }) })
+    .catch((err) => { console.log(err) })
+})
+//更新資料
+app.put('/restaurants/edit/:id', (req, res) => {
+  const id = req.params.id
+  const data = req.body
+  return restaurant.update(data, { where: { id } })
+    .then(() => res.redirect(`/restaurants/edit/:${id}`))
+    .catch((err) => { console.log(err) })
+})
+//刪除資料
+app.delete('/restaurants/edit/:id', (req, res) => {
+  const id = req.params.id
+  return restaurant.destroy({ where: { id } })
+    .then(() => { res.redirect('/restaurants/edit') })
+})
+//顯次詳細資料
 app.get('/restaurants/:id', (req, res) => {
   const id = req.params.id
-  const detail = restaurants.find((items) => items.id.toString() === id
-  )
-  res.render('detail', { detail })
+  return findIdFormDatabase(id)
+    .then((detail) => { res.render('detail', { detail }) })
+    .catch((err) => { console.log(err) })
 })
-
-const categories = restaurants.map(item => item.category)
-
-app.get('/restaurants/add', (req, res) => {
-  res.render('favorite', { categories })
-})
-
-app.post('/submitRestaurantData', (req, res, next) => {
-  const { name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    description } = req.body
-  const id = restaurants.length + 1
-  const newRestaurant = {
-    id,
-    name,
-    name_en,
-    category,
-    image,
-    location,
-    phone,
-    google_map,
-    description
-  };
-  restaurants.push(newRestaurant)
-  console.log(newRestaurant)
-  res.redirect('/addFavorite')
+//創建新資料
+app.post('/restaurants', (req, res) => {
+  const body = req.body
+  return restaurant.create(body)
+    .then(() => res.redirect('/restaurants/add'))
+    .catch((err) => { console.log(err) })
 })
 
 

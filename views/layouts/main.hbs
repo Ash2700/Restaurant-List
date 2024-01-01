@@ -20,17 +20,20 @@
             width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
           我的餐廳清單
         </a>
-        <form action="/restaurants/add">
-          <div class="input-group-append">
-            <button class="btn btn-major" type="add-btn" id="search-button"> + <i class="fas fa-search"></i>
-            </button>
-          </div>
-        </form>
+        {{!-- //增加按鈕 --}}
+        <div>
+          <a class="btn btn-major" href="/restaurants/add" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            增加收藏
+          </a>
+          <a class="btn btn-major" href="/restaurants/edit" role="button" aria-expanded="false"
+            aria-controls="collapseExample">
+            修改
+          </a>
+        </div>
       </div>
     </nav>
-
     <div class="banner"></div>
-
   </header>
 
   {{{body}}}
