@@ -30,47 +30,48 @@
 
   ## [Installation - 安裝]
 
-1. 打開你的 terminal，Clone 此專案至本機電腦
+1. 確保在這個檔案中，確保 development 部分有正確的資料庫相關設定，包括 username、password、database等。這是一個例子：
+  ```jsx
+  "development": {
+  "username": "root",
+  "password": "your_password",
+  "database": "restaurant",
+  "host": "127.0.0.1",
+  "dialect": "mysql"
+}
 
+  ```
+  
+2. MySQL 伺服器：
+
+請確保 MySQL 伺服器是運行的，而且可以使用你在 config.json 中設定的資料庫名稱、使用者名稱和密碼。
+
+
+3. 資料庫建立：
+
+在執行 npm run table 之前，確保你的資料庫已經存在，如果不存在，你可以在 MySQL 中手動建立：
+
+```jsx
+CREATE DATABASE restaurant;
+```
+確保 your_database_name 與你在 config.json 中設定的相同。
+
+4. 終端機指令：
+
+確保你依次執行以下指令：
 ```jsx
 git clone https://github.com/Ash2700/Restaurant-List.git
-```
-
-2. 開啟終端機(Terminal)，進入存放此專案的資料夾
-
-```jsx
-cd /***/saveThisFile
-```
-
-3. 安裝 npm 套件
-
-```jsx
+cd Restaurant-List
 npm install 
-```
-
-4. 安裝 nodemon 套件
-
-```jsx
- npm install -g nodemon 
-```
-5. 建立table
-
-```jsx
- npm run table
-```
-6. 建立seed 資料
-
-```jsx
- npm run seed 
-```
-
-7. 啟動伺服器，執行 app.js 檔案
-
-```jsx
+npm install -g nodemon 
+npm run table
+npm run seed
 npm run dev
+ 
 ```
+這些指令會將專案複製到你的本地，安裝相依套件，建立資料表，填充資料，然後啟動伺服器。
 
-7. 當 terminal 出現以下字樣，表示伺服器與資料庫已啟動並成功連結
+5. 當 terminal 出現以下字樣，表示伺服器與資料庫已啟動並成功連結
    
 ```jsx
 express server is running on http://localhost:3000
