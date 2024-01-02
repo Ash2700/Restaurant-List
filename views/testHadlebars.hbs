@@ -1,0 +1,21 @@
+<form action={{formAction}}method="POST" class="row gy-2 gx-3 align-items-center"
+  style="background-color:rgb(236, 192, 129) ;">
+  <div class="w-50 container mt-5">
+    {{#each parameter}}
+    <div class="input-group mb-2 ">
+      <span class="input-group-text">{{spanText}}</span>
+      <input type="text" name="{{_name}}" value={{#if info}}
+      
+      {{else}}
+      {{name}}
+      {{/if}} aria-label="First name" class="form-control"
+        placeholder='{{placeholder}}'>
+    </div>
+    {{/each}}
+    
+    <div class="input-group-append">
+      <button class="btn btn-major" type="submit" id="search-button"> submit <i class="fas fa-search"></i>
+      </button>
+    </div>
+  </div>
+</form>

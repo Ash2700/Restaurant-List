@@ -1,13 +1,16 @@
 # project : 我的餐廳清單
-使用下列
-Node.js 
-Express
-Express-handlebars
-Sequelize
-Sequelize-cli
-mysql2
-method-override
+
 打造的餐廳清單網站, 收錄了許多家餐廳的相關資訊, 給喜歡收藏美食的愛好者可以進行收藏和搜尋。
+<hr>
+# 開發工具
+    使用下列
+    Node.js 
+    Express
+    Express-handlebars
+    Sequelize
+    Sequelize-cli
+    mysql2
+    method-override
 
 # Features : 
   <ul>
@@ -50,8 +53,18 @@ npm install
 ```jsx
  npm install -g nodemon 
 ```
+5. 建立table
 
-5. 啟動伺服器，執行 app.js 檔案
+```jsx
+ npm run table
+```
+6. 建立seed 資料
+
+```jsx
+ npm run seed 
+```
+
+7. 啟動伺服器，執行 app.js 檔案
 
 ```jsx
 npm run dev

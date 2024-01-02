@@ -1,51 +1,51 @@
-<form action="/restaurants" method="POST" class="row gy-2 gx-3 align-items-center"
+<form action={{formAction}} method="POST" class="row gy-2 gx-3 align-items-center"
   style="background-color:rgb(236, 192, 129) ;">
   <div class="w-50 container mt-5">
     <div class="input-group mb-2 ">
       <span class="input-group-text">餐廳名稱</span>
-      <input type="text" name="name" value="{{name}}" aria-label="First name" class="form-control"
+      <input type="text" name="name" value={{#if info}}"{{info.name}}"{{else}}"{{name}}"{{/if}} aria-label="First name" class="form-control"
         placeholder='請輸入餐廳名稱'>
     </div>
 
     <div class="input-group mb-2 ">
       <span class="input-group-text">餐廳其他名稱</span>
-      <input type="text" aria-label="First name" class="form-control" name="name_en" value="{{name_en}}"
+      <input type="text" aria-label="First name" class="form-control" name="name_en" value={{#if info}}"{{info.name_en}}"{{else}}"{{name}}"{{/if}}
         placeholder='請輸入中文之外的名稱'>
     </div>
 
     <div class="input-group mb-2 ">
       <span class="input-group-text">料理分類</span>
-      <input type="text" aria-label="category" class="form-control" name="category" value="{{category}}" placeholder="輸入分類，如果沒有選項時">
+      <input type="text" aria-label="category" class="form-control" name="category" value={{#if info}}"{{info.category}}"{{else}}"{{name}}"{{/if}} placeholder="輸入分類，如果沒有選項時">
     </div>
 
     <div class="input-group mb-2 ">
       <span class="input-group-text">餐廳圖片網址</span>
-      <input type="url" aria-label="First name" class="form-control" name="image" value="{{image}}"
+      <input type="url" aria-label="First name" class="form-control" name="image" value={{#if info}}"{{info.image}}"{{else}}"{{name}}"{{/if}}
         placeholder='只能輸入圖片連結'>
     </div>
     <div class="input-group mb-2 ">
       <span class="input-group-text">餐廳地址</span>
-      <input type="text" aria-label="First name" class="form-control" name="location" value="{{location}}"
+      <input type="text" aria-label="First name" class="form-control" name="location" value={{#if info}}"{{info.location}}"{{else}}"{{name}}"{{/if}}
         placeholder='請輸入餐廳地址'>
     </div>
     <div class="input-group mb-2 ">
       <span class="input-group-text">餐廳電話</span>
-      <input type="tel" aria-label="First name" class="form-control" name="phone" value="{{phone}}"
+      <input type="tel" aria-label="First name" class="form-control" name="phone" value={{#if info}}"{{info.phone}}"{{else}}"{{name}}"{{/if}}
         placeholder='輸入餐廳電話'>
     </div>
     <div class="input-group mb-2 ">
       <span class="input-group-text">google map</span>
-      <input type="url" aria-label="First name" class="form-control" name="google_map" value="{{google_map}}"
+      <input type="url" aria-label="First name" class="form-control" name="google_map" value={{#if info}}"{{info.google_map}}"{{else}}"{{name}}"{{/if}}
         placeholder='只能輸入網址，輸入google map的連結'>
     </div>
     <div class="input-group mb-2 ">
       <span class="input-group-text">google map</span>
-      <input type="float" max="5.0" aria-label="First name" class="form-control" name="rating" value="{{rating}}"
+      <input type="float" max="5.0" aria-label="First name" class="form-control" name="rating" value={{#if info}}"{{info.rating}}"{{else}}"{{name}}"{{/if}}
         placeholder='輸入你的喜好程度，最多5'>
     </div>
     <div class="input-group mb-2 ">
       <span class="input-group-text">餐廳特色描述</span>
-      <input type="text" aria-label="First name" class="form-control" name="description" value="{{description}}"
+      <input type="text" aria-label="First name" class="form-control" name="description" value={{#if info}}"{{info.description}}"{{else}}"{{name}}"{{/if}}
         placeholder='輸入對於餐廳特色描述'>
     </div>
 

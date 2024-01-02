@@ -1,0 +1,41 @@
+{
+  "parameter":[
+    {
+      "spanText":"餐廳名稱",
+      "_name" : "name",
+      "placeholder":"請輸入餐廳名稱"
+    },{
+      "spanText": "餐廳其他名稱",
+      "_name": "name_en",
+      "placeholder": "請輸入中文之外的名稱"
+    },{
+      "spanText": "料理分類",
+      "_name": "category",
+      "placeholder": "輸入分類，如果沒有選項時"
+    },{
+      "spanText": "餐廳圖片網址",
+      "_name": "image",
+      "placeholder": "輸入圖片連結"
+    },{
+      "spanText": "餐廳地址",
+      "_name": "location",
+      "placeholder": "請輸入餐廳地址"
+    },{
+      "spanText": "餐廳電話",
+      "_name": "phone",
+      "placeholder": "請輸入餐廳電話"
+    },{
+      "spanText": "google map",
+      "_name": "google_map",
+      "placeholder": "請輸入google map的連結"
+    },{
+      "spanText": "rating",
+      "_name": "rating",
+      "placeholder": "請輸入你的洗好程度最多5"
+    },{
+      "spanText": "餐廳特色描述",
+      "_name": "description",
+      "placeholder": "請輸入餐廳特色及描述"
+    }
+  ]
+}
