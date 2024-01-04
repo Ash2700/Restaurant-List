@@ -1,16 +1,10 @@
 
-const submitButton = document.querySelector("#submitButton");
-const form = document.querySelector("#dataForm");
+function confirmDelete(value){
+  const isConfirmed = confirm("確定要刪除嗎")
 
-form.addEventListener("submit", function onFormSubmitted(event) {
-  document.querySelector("#dataForm").classList.add("was-validated");
+  if(isConfirmed){
+    document.getElementById(`deleteForm${value}`).submit(value)
+  }else{
 
-  form.querySelectorAll("input").forEach((element) => {
-    if (!element.checkValidity()) {
-      event.preventDefault();
-      event.stopPropagation();
-      const feedback = element.parentElement.querySelector(".invalid-feedback");
-      feedback.textContent = element.validationMessage;
-    }
-  });
-});
+  }
+}
