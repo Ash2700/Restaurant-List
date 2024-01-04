@@ -26,9 +26,9 @@ app.get('/restaurants', (req, res) => {
   const matchedRestaurant = keyword
     ? filterFormDatabaseByKeyword(keyword)
     : findAllFormDatabase()
-  return matchedRestaurant.then((restaurant_sqlData) => {
+  return matchedRestaurant.then((restaurantSQLData) => {
     res.render('index', {
-      restaurants: restaurant_sqlData, keyword
+      restaurants: restaurantSQLData, keyword
     })
   })
     .catch((err) => { console.log(err) })
@@ -82,9 +82,9 @@ app.get('/restaurants/edit', (req, res) => {
   const keyword = req.query.keyword?.trim()
   const display = true
   return findAllFormDatabase()
-    .then((restaurant_sqlData) => {
+    .then((restaurantSQLData) => {
       res.render('index', {
-        restaurants: restaurant_sqlData, keyword, display
+        restaurants: restaurantSQLData, keyword, display
       })
     })
     .catch((err) => { console.log(err) })
