@@ -47,9 +47,10 @@
           </div>
         </form>
         {{!-- 增加刪除功能 --}}
-        <form class="m-2" action="/restaurants/edit/{{restaurant.id}}?_method=DELETE" method="post">
+        <form class="m-2" id="deleteForm{{restaurant.id}}" action="/restaurants/edit/{{restaurant.id}}?_method=DELETE" method="post">
+          <input type="hidden" name ="deleteById" value="{{restaurant.id}}">
           <div class="d-grid gap-2">
-            <button class="btn btn-danger" type="submit">刪除</button>
+            <button class="btn btn-danger" type="button" onclick="confirmDelete({{restaurant.id}})">刪除</button>
           </div>
         </form>
         {{/if}}
