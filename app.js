@@ -74,6 +74,9 @@ app.get('/restaurants/add', (req, res) => {
 app.post('/restaurants/add', (req, res) => {
   const body = req.body
   return restaurant.create(body)
+  .then((content)=>{
+    
+  })
     .then(() => res.redirect('/restaurants/add'))
     .catch((err) => { console.log(err) })
 })
