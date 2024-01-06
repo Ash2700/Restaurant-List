@@ -28,8 +28,7 @@ app.get('/restaurants', (req, res) => {
     : findAllFormDatabase()
   return matchedRestaurant.then((restaurantSQLData) => {
     res.render('index', {
-      restaurants: restaurantSQLData, keyword
-    })
+      restaurants: restaurantSQLData, keyword})
   })
     .catch((err) => { console.log(err) })
 })
@@ -74,20 +73,18 @@ app.get('/restaurants/add', (req, res) => {
 app.post('/restaurants/add', (req, res) => {
   const body = req.body
   return restaurant.create(body)
-  .then((content)=>{
-    
-  })
-    .then(() => res.redirect('/restaurants/add'))
+    .then(() => res.redirect('/restaurants'))
     .catch((err) => { console.log(err) })
 })
 // 顯示編輯按鈕
 app.get('/restaurants/edit', (req, res) => {
   const keyword = req.query.keyword?.trim()
-  const display = true
+  const displayButton = true
+  const switchDisplayModel =true
   return findAllFormDatabase()
     .then((restaurantSQLData) => {
       res.render('index', {
-        restaurants: restaurantSQLData, keyword, display
+        restaurants: restaurantSQLData, keyword, display:displayButton,back:switchDisplayModel
       })
     })
     .catch((err) => { console.log(err) })
