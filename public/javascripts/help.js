@@ -3,5 +3,5 @@ function confirmDelete (value) {
 
   if (isConfirmed) {
     document.getElementById(`deleteForm${value}`).submit(value)
-  } 
+  }
 }

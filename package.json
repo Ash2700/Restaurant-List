@@ -8,7 +8,9 @@
     "table":"npx sequelize db:migrate",
     "seed" : "npx sequelize db:seed:all",
     "dev": "nodemon app.js",
-    "test": "standard && node my-tests.js"
+    "test": "standard && node my-tests.js",
+    "standard" : "standard --fix"
+    
   },
   "keywords": [],
   "author": "Ash2700",
