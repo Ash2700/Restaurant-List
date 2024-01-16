@@ -1,81 +1,84 @@
+{{>message}}
+
 <!-- restaurant list -->
 <div class="container mt-5 ">
   <div class="row " style="padding-bottom: 60px ;">
-    <div class="col-md-10 col-12 mx-auto">
+    <div class="col-md-10 col-12 mx-auto position-relative">
+      <footer class="navbar  navbar-light bg-light ">
+        <div class="container-fluid " style="background-color: blanchedalmond;">
+          <!-- search bar -->
+          <form action="/restaurants">
+            <div class="input-group ms-1">
+
+              <input type="text" name="keyword" class="form-control" placeholder="輸入關鍵字來搜尋餐廳、分類"
+                aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button">
+              <div class="input-group-append">
+                <button class="btn btn-major fw-bolder" type="submit" id="search-button">search<i
+                    class="fas fa-search"></i></button>
+              </div>
+            </div>
+          </form>
+
+          <div class="dropdown">
+            <a class="btn btn-major dropdown-toggle" href="/restaurants" role="button" id="dropdownMenuLink"
+              data-bs-toggle="dropdown" aria-expanded="false">
+              Sort By
+            </a>
+
+            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+              <li><a class="dropdown-item" href="/restaurants?select=name" >Name</a></li>
+              <li><a class="dropdown-item" href="/restaurants?select=name&deration=DESC" >Name(reverse)</a></li>
+              <li><a class="dropdown-item" href="/restaurants?select=category" >category</a></li>
+              <li><a class="dropdown-item" href="/restaurants?select=rating">Rating</a></li>
+              <li><a class="dropdown-item" href="/restaurants?select=rating&deration=DESC">Rating(reverse)</a></li>
+            </ul>
+          </div>
+        </div>
+      </footer>
       <div class="row row-cols-sm-3 ">
         {{#each restaurants as |restaurant|}}
         <div class="">
-          <a href="/restaurants/{{restaurant.id}}" class="text-secondary">
-            <div class="card mb-3">
-              <img class="card-img-top" src="{{restaurant.image}}" alt="{{restaurant.name}}">
-              <div class="card-body p-3">
-                <h6 class="card-title mb-1">{{restaurant.name}}</h6>
 
-                <div class="restaurant-category mb-1">
-                  <i class="fas fa-utensils pr-2"></i> {{restaurant.category}}
-                </div>
+          <div class="card mb-3">
+            <img class="card-img-top" src="{{restaurant.image}}" alt="{{restaurant.name}}">
+            <div class="card-body p-3">
+              <h6 class="card-title mb-1">{{restaurant.name}}</h6>
 
-                <span class="badge rounded-pill bg-danger font-weight-normal">
-                  {{restaurant.rating}}
-                  <i class="fas fa-star fa-xs"></i>
-                </span>
+              <div class="restaurant-category mb-1">
+                <i class="fas fa-utensils pr-2"></i> {{restaurant.category}}
               </div>
-            </div>
-          </a>
-          {{#if ../display }}
 
-          <form class="m-2" action="/restaurants/edit/{{restaurant.id}}">
-            <div class="d-grid gap-2">
-              <button class="btn btn-primary" type="submit">更新資料</button>
+              <span class="badge rounded-pill bg-danger font-weight-normal">
+                {{restaurant.rating}}
+                <i class="fas fa-star fa-xs"></i>
+              </span>
             </div>
-          </form>
-          {{!-- 增加刪除功能 --}}
-          <form class=" m-2 " id="deleteForm{{restaurant.id}}" action="/restaurants/edit/{{restaurant.id}}?_method=DELETE"
-            method="post">
-            <input type="hidden" name="deleteById" value="{{restaurant.id}}">
-            <div class="d-grid gap-2">
-              <button class="btn btn-danger" type="button" onclick="confirmDelete({{restaurant.id}})">刪除</button>
+          </div>
+
+          <div class="d-flex justify-content-end">
+            {{!-- 編輯模式 --}}
+            <div class=" m-2 d-inline">
+              <a type="button" href="/restaurants/edit/{{restaurant.id}}" class="text-success d-inline">
+                Edit</a>
             </div>
-          </form>
-          {{/if}}
+            {{!-- 詳細資料 --}}
+            <div class="m-2 d-inline">
+              <a type="button" href="/restaurants/{{restaurant.id}}" class="text-primary d-inline">
+                Detail</a>
+            </div>
+
+            {{!-- 增加刪除功能 --}}
+            <div class=" d-inline ">
+              <form class=" m-1 d-inline" id="deleteForm{{restaurant.id}}"
+                action="/restaurants/edit/{{restaurant.id}}?_method=DELETE" method="post">
+                <input type="hidden" name="deleteById" value="{{restaurant.id}}">
+                <button class="btn btn-danger" type="button" onclick="confirmDelete({{restaurant.id}})">刪除</button>
+              </form>
+            </div>
+          </div>
         </div>
         {{/each}}
       </div>
     </div>
   </div>
 </div>
-<footer class="navbar fixed-bottom navbar-light bg-light ">
-  <div class="container-fluid " style="background-color: blanchedalmond;">
-    <!-- search bar -->
-    <form action="/restaurants" >
-      <div class="input-group ms-4">
-        <label for="keyword" class="fw-bold p-2">尋找餐廳：</label>
-        <input type="text" name="keyword" class="form-control" placeholder="輸入關鍵字來搜尋餐廳、分類"
-          aria-label="Restaurant Name..." value="{{keyword}}" aria-describedby="search-button">
-        <div class="input-group-append">
-          <button class="btn btn-major fw-bolder" type="submit" id="search-button">search<i
-              class="fas fa-search"></i></button>
-        </div>
-      </div>
-    </form>
-    {{!-- //增加按鈕 --}}
-    <div>
-      <a class="btn btn-major" href="/restaurants/add" role="button" aria-expanded="add-favorite button"
-        aria-controls="collapseExample">
-        增加收藏
-      </a>
-      {{#if back}}
-      <a class="btn btn-major m-2" href="/restaurants" role="button" aria-expanded="view-model button"
-        aria-controls="collapseExample">
-        導覽模式
-      </a>
-      {{else}}
-      <a class="btn btn-major m-2" href="/restaurants/edit" role="button" aria-expanded="edit-model button"
-        aria-controls="collapseExample">
-        編輯模式
-      </a>
-      {{/if}}
-    </div>
-  </div>
-
-</footer>

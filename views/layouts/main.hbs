@@ -9,22 +9,25 @@
   <link rel="stylesheet" href="/stylesheets/style.css">
   <link rel="stylesheet" href="/stylesheets/detailstyle.css">
 </head>
-
+<header>
+  <!-- navigation -->
+  <nav class="navbar fixed-top navbar-light " style="background-color: blanchedalmond;">
+    <div class="container">
+      <a class="navbar-brand" href="/">
+        <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
+          width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
+        我的餐廳清單
+      </a>
+      <a class="btn btn-major" href="/restaurants/add" role="button" aria-expanded="add-favorite button"
+        aria-controls="collapseExample">
+        Create
+      </a>
+    </div>
+  </nav>
+  <div class="banner"></div>
+</header>
 <body>
-  <header>
-    <!-- navigation -->
-    <nav class="navbar fixed-top navbar-light " style="background-color: blanchedalmond;">
-      <div class="container" >
-        <a class="navbar-brand" href="/">
-          <img src="https://assets-lighthouse.s3.amazonaws.com/uploads/image/file/6227/restaurant-list-logo.png"
-            width="30" height="30" class="d-inline-block align-top" alt="我的餐廳清單">
-          我的餐廳清單
-        </a>
-        
-      </div>
-    </nav>
-    <div class="banner"></div>
-  </header>
+  
 
   {{{body}}}
   <script src="/javascripts/help.js"></script>
