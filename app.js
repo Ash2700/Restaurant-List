@@ -5,6 +5,10 @@ const port = 3000
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
 const routes= require('./routes')
+const flash=require('connect-flash')
+const session= require('express-session')
+const messageHandler =require('./middlewares/message-handler')
+const errorHandler = require('./middlewares/error-handler')
 
 
 app.engine('.hbs', engine({ extname: '.hbs' }))
@@ -14,9 +18,15 @@ app.use(express.static('public'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }))
 app.use(methodOverride('_method'))
-
+app.use(session({
+  secret:'ThisIsSecret',
+  resave:false,
+  saveUninitialized:false
+}))
+app.use(flash())
+app.use(messageHandler)
 app.use(routes)
-
+app.use(errorHandler)
 
 
 app.listen(port, () => {

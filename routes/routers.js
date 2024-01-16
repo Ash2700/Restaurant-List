@@ -8,11 +8,11 @@ const db = require('../models')
 const restaurant = db.restaurant
 
 
-router.get('/', (req, res) => {
+router.get('/', (req, res, next) => {
   const keyword = req.query.keyword?.trim()
   const sortSelect = req.query.select ? req.query.select : 'name'
   const sortDeration = req.query.deration ? req.query.deration : 'ASC'
-  const sortPlan = haveorder(sortSelect, sortDeration)
+  const sortPlan = isSortPlan(sortSelect, sortDeration)
   const matchedRestaurant = keyword
     ? filterFormDatabaseByKeyword(keyword, sortPlan)
     : findAllFormDatabase(sortPlan)
@@ -21,9 +21,11 @@ router.get('/', (req, res) => {
     .then((restaurantSQLData) => {
       res.render('index', { restaurants: restaurantSQLData, keyword })
     })
-    .catch((err) => { console.log(err) })
+    .catch((error) => {
+      error.errorMessage = '伺服器出錯'
+      next(error)
+    })
 })
-
 
 async function filterFormDatabaseByKeyword(keyword, sortBy) {
   const condition = Sequelize.Op
@@ -50,7 +52,7 @@ async function findAllFormDatabase(sortPlan) {
     order: [sortPlan]
   })
 }
-function haveorder(Select, deration) {
+function isSortPlan(Select, deration) {
   const selectList = ['name', 'category', 'rating']
   const derationList = ['ASC', 'DESC']
   let sortPlan = []
@@ -67,58 +69,70 @@ async function findIdFormDatabase(id) {
 }
 // 新增收藏資料
 
-router.get('/add', (req, res) => {
+router.get('/add', (req, res, next) => {
   const formAction = '/restaurants/add'
   res.render('favorite', { formAction })
 })
 // 創建新資料
-router.post('/add', (req, res) => {
+router.post('/add', (req, res, next) => {
   const body = req.body
   return restaurant.create(body)
-    .then(() => res.redirect('/restaurants'))
-    .catch((err) => { console.log(err) })
-})
-// 顯示編輯按鈕
-router.get('/edit', (req, res) => {
-  const keyword = req.query.keyword?.trim()
-  return findAllFormDatabase()
-    .then((restaurantSQLData) => {
-      res.render('index', {
-        restaurants: restaurantSQLData, keyword
-      })
+    .then(() => {
+      req.flash('success', '新增成功')
+      res.redirect('/restaurants')
     })
-    .catch((err) => { console.log(err) })
+    .catch((error) => {
+      error.errorMessage = '新增失敗'
+      next(error)
+    })
 })
+
 // 編輯資料頁
-router.get('/edit/:id', (req, res) => {
+router.get('/edit/:id', (req, res, next) => {
   const id = req.params.id
   const formAction = '/restaurants/edit/{{detail.id}}?_method=PUT'
   return findIdFormDatabase(id)
     .then((detail) => {
       res.render('favorite', { info: detail, formAction })
     })
-    .catch((err) => { console.log(err) })
+    .catch((error) => { error.errorMessage = '伺服器出錯'
+    next(error) })
 })
 // 更新資料
 router.put('/edit/:id', (req, res) => {
   const id = req.params.id
   const data = req.body
   return restaurant.update(data, { where: { id } })
-    .then(() => res.redirect(`/restaurants/edit/:${id}`))
-    .catch((err) => { console.log(err) })
+    .then(() => {
+      req.flash('success', '更新成功')
+      res.redirect(`/restaurants`)
+    })
+    .catch((error) => {
+      error.errorMessage = '更新失敗'
+      next(error)
+    })
 })
 // 刪除資料
-router.delete('/edit/:id', (req, res) => {
+router.delete('/edit/:id', (req, res, next) => {
   const id = req.params.id
   return restaurant.destroy({ where: { id } })
-    .then(() => { res.redirect('/restaurants/edit') })
+    .then(() => { 
+      req.flash('success','刪除成功')
+      res.redirect('/restaurants') })
+    .catch((error)=>{
+      error.errorMessage = '刪除失敗'
+      next(error)
+    })
 })
 // 顯次詳細資料
-router.get('/:id', (req, res) => {
+router.get('/:id', (req, res, next) => {
   const id = req.params.id
   return findIdFormDatabase(id)
     .then((detail) => { res.render('detail', { detail }) })
-    .catch((err) => { console.log(err) })
+    .catch((err) => {
+      error.errorMessage = '伺服器出錯'
+      next(error)
+    })
 })
 
 
