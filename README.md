@@ -39,7 +39,6 @@
   "host": "127.0.0.1",
   "dialect": "mysql"
 }
-
   ```
   
 2. MySQL 伺服器：
@@ -56,7 +55,24 @@ CREATE DATABASE restaurant;
 ```
 確保 your_database_name 與你在 config.json 中設定的相同。
 
-4. 終端機指令：
+4. 環境變數的設定
+在執行之前根據env.example內的資料建立一個.env檔案
+```jsx
+touch .env;
+```
+在sESSION_SECRTE內輸入一個值
+
+```jsx
+//.env
+SESSION_SECRET=skip;
+```
+並且在terminal 根據作業系統設定環境變數NODE_ENV
+
+```jsx
+export NODE_ENV=development
+```
+
+1. 終端機指令：
 
 確保你依次執行以下指令：
 ```jsx
@@ -67,17 +83,16 @@ npm install -g nodemon
 npm run table
 npm run seed
 npm run dev
- 
+
 ```
 這些指令會將專案複製到你的本地，安裝相依套件，建立資料表，填充資料，然後啟動伺服器。
 
-5. 當 terminal 出現以下字樣，表示伺服器與資料庫已啟動並成功連結
+1. 當 terminal 出現以下字樣，表示伺服器與資料庫已啟動並成功連結
    
 ```jsx
 express server is running on http://localhost:3000
 ```
 最後，請開啟任一瀏覽器瀏覽器輸入 [http://localhost:3000](http://localhost:3000) ，就可以開始瀏覽餐廳清單！
-
 
 
 
