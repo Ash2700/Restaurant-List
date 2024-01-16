@@ -1,12 +1,9 @@
 const express = require('express')
 const router = express.Router()
 
-
-
 const { Sequelize } = require('sequelize')
 const db = require('../models')
 const restaurant = db.restaurant
-
 
 router.get('/', (req, res, next) => {
   const keyword = req.query.keyword?.trim()
@@ -27,7 +24,7 @@ router.get('/', (req, res, next) => {
     })
 })
 
-async function filterFormDatabaseByKeyword(keyword, sortBy) {
+async function filterFormDatabaseByKeyword (keyword, sortBy) {
   const condition = Sequelize.Op
   return await restaurant.findAll({
     attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
@@ -44,15 +41,14 @@ async function filterFormDatabaseByKeyword(keyword, sortBy) {
 }
 
 // 撈全部屬性資料出來
-async function findAllFormDatabase(sortPlan) {
-
+async function findAllFormDatabase (sortPlan) {
   return await restaurant.findAll({
     attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
     raw: true,
     order: [sortPlan]
   })
 }
-function isSortPlan(Select, deration) {
+function isSortPlan (Select, deration) {
   const selectList = ['name', 'category', 'rating']
   const derationList = ['ASC', 'DESC']
   let sortPlan = []
@@ -61,7 +57,7 @@ function isSortPlan(Select, deration) {
   } else return sortPlan = []
 }
 // 藉由ID找資料
-async function findIdFormDatabase(id) {
+async function findIdFormDatabase (id) {
   return await restaurant.findByPk(id, {
     attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
     raw: true
@@ -95,8 +91,10 @@ router.get('/edit/:id', (req, res, next) => {
     .then((detail) => {
       res.render('favorite', { info: detail, formAction })
     })
-    .catch((error) => { error.errorMessage = '伺服器出錯'
-    next(error) })
+    .catch((error) => {
+      error.errorMessage = '伺服器出錯'
+      next(error)
+    })
 })
 // 更新資料
 router.put('/edit/:id', (req, res) => {
@@ -105,7 +103,7 @@ router.put('/edit/:id', (req, res) => {
   return restaurant.update(data, { where: { id } })
     .then(() => {
       req.flash('success', '更新成功')
-      res.redirect(`/restaurants`)
+      res.redirect('/restaurants')
     })
     .catch((error) => {
       error.errorMessage = '更新失敗'
@@ -116,10 +114,11 @@ router.put('/edit/:id', (req, res) => {
 router.delete('/edit/:id', (req, res, next) => {
   const id = req.params.id
   return restaurant.destroy({ where: { id } })
-    .then(() => { 
-      req.flash('success','刪除成功')
-      res.redirect('/restaurants') })
-    .catch((error)=>{
+    .then(() => {
+      req.flash('success', '刪除成功')
+      res.redirect('/restaurants')
+    })
+    .catch((error) => {
       error.errorMessage = '刪除失敗'
       next(error)
     })
@@ -134,6 +133,5 @@ router.get('/:id', (req, res, next) => {
       next(error)
     })
 })
-
 
 module.exports = router
