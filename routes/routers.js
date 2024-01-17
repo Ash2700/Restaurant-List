@@ -29,7 +29,7 @@ async function filterFormDatabaseByKeyword (keyword, sortBy) {
   return await restaurant.findAll({
     attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
     raw: true,
-    order: [sortBy],
+    order: sortBy,
     where: {
       [condition.or]: [
         { name: { [condition.substring]: `${keyword}` } },
@@ -45,7 +45,7 @@ async function findAllFormDatabase (sortPlan) {
   return await restaurant.findAll({
     attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description'],
     raw: true,
-    order: [sortPlan]
+    order: sortPlan
   })
 }
 function isSortPlan (Select, deration) {
@@ -53,8 +53,8 @@ function isSortPlan (Select, deration) {
   const derationList = ['ASC', 'DESC']
   let sortPlan = []
   if (selectList.includes(Select) && derationList.includes(deration)) {
-    return sortPlan = [`${Select}`, `${deration}`]
-  } else return sortPlan = []
+    return sortPlan = [[`${Select}`, `${deration}`]]
+  } return sortPlan = []
 }
 // 藉由ID找資料
 async function findIdFormDatabase (id) {
@@ -97,7 +97,7 @@ router.get('/edit/:id', (req, res, next) => {
     })
 })
 // 更新資料
-router.put('/edit/:id', (req, res) => {
+router.put('/edit/:id', (req, res, next) => {
   const id = req.params.id
   const data = req.body
   return restaurant.update(data, { where: { id } })
@@ -128,7 +128,7 @@ router.get('/:id', (req, res, next) => {
   const id = req.params.id
   return findIdFormDatabase(id)
     .then((detail) => { res.render('detail', { detail }) })
-    .catch((err) => {
+    .catch((error) => {
       error.errorMessage = '伺服器出錯'
       next(error)
     })
