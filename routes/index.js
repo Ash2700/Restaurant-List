@@ -17,6 +17,18 @@ router.get('/register',(req, res)=>{
   res.render('register')
 })
 
+router.post('/register',(req, res)=>{
+  const {name, email, password, confirmPassword}=req.body
+  if(!email || !password){
+    req.flash('error','email或密碼為必填')
+    return res.redirect('back')
+  }
+  if(password !== confirmPassword){
+    req.flash('error','驗證密碼和密碼需相同')
+    return res.redirect('back')
+  }
+})
+
 router.get('/logOut',(req, res)=>{
   res.send('logOuted')
 })
