@@ -4,7 +4,6 @@ const port = 3000
 
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
-const routes = require('./routes')
 const flash = require('connect-flash')
 const session = require('express-session')
 const messageHandler = require('./middlewares/message-handler')
@@ -13,6 +12,7 @@ const errorHandler = require('./middlewares/error-handler')
 if(process.env.NODE_ENV === 'development'){
   require('dotenv').config()
 }
+const routes = require('./routes')
 
 app.engine('.hbs', engine({ extname: '.hbs' }))
 app.set('view engine', '.hbs')

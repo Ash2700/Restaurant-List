@@ -1,36 +1,37 @@
 const express = require('express')
 const router = express.Router()
-
+const bcrypt = require('bcryptjs')
 const restaurant = require('./routers')
+const user = require('./user')
+const db = require('../models')
+const Users = db.Users
+
 
 router.use('/restaurants', restaurant)
+router.use('/user', user)
 
 router.get('/', (req, res) => {
-  res.redirect('/login')
+  res.redirect('/restaurants')
 })
 
-router.get('/login',(req, res)=>{
+router.get('/login', (req, res) => {
   res.render('login')
 })
 
-router.get('/register',(req, res)=>{
+router.get('/register', (req, res) => {
   res.render('register')
 })
 
-router.post('/register',(req, res)=>{
-  const {name, email, password, confirmPassword}=req.body
-  if(!email || !password){
-    req.flash('error','email或密碼為必填')
-    return res.redirect('back')
-  }
-  if(password !== confirmPassword){
-    req.flash('error','驗證密碼和密碼需相同')
-    return res.redirect('back')
-  }
-})
 
-router.get('/logOut',(req, res)=>{
-  res.send('logOuted')
+
+router.get('/logOut', (req, res, next) => {
+  return req.logOut((error) => {
+    if (error) {
+
+      return next(error)
+    }
+    return res.redirect('/login')
+  })
 })
 
 module.exports = router
