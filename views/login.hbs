@@ -1,0 +1,28 @@
+{{>navbar}}
+{{>message}}
+<div   style="background-color:rgb(236, 192, 129) ;">
+    <form action="/login" method="POST" class="row gy-2 gx-3 align-items-center" id="dataForm">
+        <div class="w-50 container mt-5">
+            <div class="input-group mb-2 ">
+                <span class="input-group-text">email</span>
+                <input type="email" name="email" aria-label="email" class="form-control" placeholder='請輸入email'
+                    minlength="1" required>
+
+            </div>
+
+            <div class="input-group mb-2 ">
+                <span class="input-group-text">password</span>
+                <input type="password" aria-label="password" class="form-control" name="password"
+                    placeholder='請輸入password'>
+            </div>
+
+            <div class="input-group-append">
+                <button class="btn btn-major" type="submit" id="submit_button"> login <i class="fas fa-search"></i>
+                </button>
+            </div>
+        </div>
+    </form>
+    <div class="d-flex justify-content-center">
+        <h5>收藏專屬自己的餐廳名單，來<a href="/register">註冊</a>一個吧</h5>
+    </div>
+</div>

@@ -6,7 +6,19 @@ const restaurant = require('./routers')
 router.use('/restaurants', restaurant)
 
 router.get('/', (req, res) => {
-  res.redirect('/restaurants')
+  res.redirect('/login')
+})
+
+router.get('/login',(req, res)=>{
+  res.render('login')
+})
+
+router.get('/register',(req, res)=>{
+  res.render('register')
+})
+
+router.get('/logOut',(req, res)=>{
+  res.send('logOuted')
 })
 
 module.exports = router
