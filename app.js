@@ -10,10 +10,10 @@ const port = 3000
 
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
-const routes = require('./routes')
 const passport = require('passport')
 const messageHandler = require('./middlewares/message-handler')
 const errorHandler = require('./middlewares/error-handler')
+const routes = require('./routes')
 
 app.engine('.hbs', engine({ extname: '.hbs' }))
 app.set('view engine', '.hbs')
