@@ -8,6 +8,7 @@ const Users = db.Users
 
 const passport = require('passport')
 const LocalStrategy = require('passport-local')
+const authHandler = require('../middlewares/auth-handler')
 
 passport.use(new LocalStrategy({ usernameField: 'email' },
   async (username, password, done) => {
@@ -41,7 +42,7 @@ passport.deserializeUser((user,done)=>{
 })
 
 
-router.use('/restaurants', restaurant)
+router.use('/restaurants',authHandler, restaurant)
 router.use('/user', user)
 
 router.get('/', (req, res) => {

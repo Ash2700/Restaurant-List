@@ -3,20 +3,18 @@ if(process.env.NODE_ENV === 'development'){
   require('dotenv').config()
 }
 const express = require('express')
+const flash = require('connect-flash')
+const session = require('express-session')
 const app = express()
 const port = 3000
 
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
-const flash = require('connect-flash')
-const session = require('express-session')
+const routes = require('./routes')
 const passport = require('passport')
 const messageHandler = require('./middlewares/message-handler')
 const errorHandler = require('./middlewares/error-handler')
-const routes = require('./routes')
 
-passport.initialize()
-passport.session()
 app.engine('.hbs', engine({ extname: '.hbs' }))
 app.set('view engine', '.hbs')
 app.set('views', './views')
@@ -30,6 +28,8 @@ app.use(session({
   saveUninitialized: false
 }))
 app.use(flash())
+app.use(passport.initialize())
+app.use(passport.session())
 app.use(messageHandler)
 app.use(routes)
 app.use(errorHandler)
