@@ -11,6 +11,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate (models) {
       // define association here
+      restaurant.belongsTo(models.Users)
     }
   }
   restaurant.init({
@@ -38,6 +39,9 @@ module.exports = (sequelize, DataTypes) => {
     },
     description: {
       type: DataTypes.TEXT
+    },
+    userID: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,
