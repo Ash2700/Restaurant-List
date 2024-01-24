@@ -15,7 +15,6 @@ router.get('/', (req, res, next) => {
   const matchedRestaurant =
     filterFormDatabaseByKeyword(keyword, sortPlan, userId)
 
-
   return matchedRestaurant
     .then((restaurantSQLData) => {
       res.render('index', { restaurants: restaurantSQLData, keyword })
@@ -26,19 +25,18 @@ router.get('/', (req, res, next) => {
     })
 })
 
-async function filterFormDatabaseByKeyword(keyword, sortPlan, userId) {
-
+async function filterFormDatabaseByKeyword (keyword, sortPlan, userId) {
   return await restaurant.findAll({
     attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description', 'userID'],
     raw: true,
     order: sortPlan,
     where: [{ userID: userId },
-    addSearchWord(keyword)
+      addSearchWord(keyword)
     ]
   })
 }
 
-function addSearchWord(keyword) {
+function addSearchWord (keyword) {
   let searchCondition = {}
   const condition = Sequelize.Op
   if (keyword) {
@@ -53,10 +51,9 @@ function addSearchWord(keyword) {
   return searchCondition = {}
 }
 
-
-function isSortPlan(Select, deration) {
-  const select = Select ? Select : 'name'
-  const Deration = deration ? deration : 'ASC'
+function isSortPlan (Select, deration) {
+  const select = Select || 'name'
+  const Deration = deration || 'ASC'
   const selectList = ['name', 'category', 'rating']
   const derationList = ['ASC', 'DESC']
   let sortPlan = []
@@ -65,7 +62,7 @@ function isSortPlan(Select, deration) {
   } return sortPlan = []
 }
 // 藉由ID找資料
-async function findIdFormDatabase(id, isRawTrue) {
+async function findIdFormDatabase (id, isRawTrue) {
   return await restaurant.findByPk(id, {
     attributes: ['id', 'name', 'name_en', 'category', 'image', 'location', 'phone', 'google_map', 'rating', 'description', 'userID'],
     raw: isRawTrue
@@ -80,7 +77,7 @@ router.get('/add', (req, res, next) => {
 router.post('/add', (req, res, next) => {
   const { name, name_en, category, image, location, phone, google_map, rating, description } = req.body
   const userID = req.user.id
-  return restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description, userID: userID })
+  return restaurant.create({ name, name_en, category, image, location, phone, google_map, rating, description, userID })
     .then(() => {
       req.flash('success', '新增成功')
       res.redirect('/restaurants')
@@ -129,7 +126,7 @@ router.put('/edit/:id', (req, res, next) => {
         req.flash('error', '權限不足')
         return res.redirect('/restaurants')
       }
-      return data.update({ name, name_en, category, image, location, phone, google_map, rating, description, userID: userID }, { where: { id } })
+      return data.update({ name, name_en, category, image, location, phone, google_map, rating, description, userID }, { where: { id } })
         .then(() => {
           req.flash('success', '更新成功')
           res.redirect('/restaurants')

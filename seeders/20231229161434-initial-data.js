@@ -4,7 +4,7 @@ const seedData = require('../public/jsons/restaurant.json').results
 
 /** @type {import('sequelize-cli').Migration} */
 module.exports = {
-  async up(queryInterface, Sequelize) {
+  async up (queryInterface, Sequelize) {
     let transaction
 
     try {
@@ -28,7 +28,7 @@ module.exports = {
 
       await queryInterface.bulkInsert('restaurants',
         seedData.map((data) => ({
-          
+
           name: data.name,
           name_en: data.name_en,
           category: data.category,
@@ -42,16 +42,16 @@ module.exports = {
           createdAt: new Date(),
           updatedAt: new Date()
         })
-        ),{transaction}
+        ), { transaction }
       )
       await transaction.commit()
     } catch (error) {
       console.error(error)
-      if(transaction) await transaction.rollback()
+      if (transaction) await transaction.rollback()
     }
   },
 
-  async down(queryInterface, Sequelize) {
+  async down (queryInterface, Sequelize) {
     await queryInterface.bulkDelete('Users', null)
   }
 }

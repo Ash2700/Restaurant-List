@@ -40,8 +40,8 @@ module.exports = (sequelize, DataTypes) => {
     description: {
       type: DataTypes.TEXT
     },
-    userID:{
-      type:DataTypes.INTEGER
+    userID: {
+      type: DataTypes.INTEGER
     }
   }, {
     sequelize,

@@ -1,5 +1,4 @@
-
-if(process.env.NODE_ENV === 'development'){
+if (process.env.NODE_ENV === 'development') {
   require('dotenv').config()
 }
 const express = require('express')
@@ -10,7 +9,7 @@ const port = 3000
 
 const { engine } = require('express-handlebars')
 const methodOverride = require('method-override')
-const passport = require('passport')
+const passport = require('./config/passport')
 const messageHandler = require('./middlewares/message-handler')
 const errorHandler = require('./middlewares/error-handler')
 const routes = require('./routes')
