@@ -4,13 +4,19 @@
 <hr>
 # 開發工具
     使用下列
-    Node.js 
-    Express
-    Express-handlebars
-    Sequelize
-    Sequelize-cli
-    mysql2
-    method-override
+    Node.js </br>
+    Express</br>
+    Express-handlebars</br>
+    Sequelize</br>
+    Sequelize-cli</br>
+    mysql2</br>
+    method-override</br>
+    passport</br>
+    passport-local</br>
+    passport-facebook</br>
+    bcryptjs</br>
+    connect-flash</br>
+    express-session</br>
 
 # Features : 
   <ul>
@@ -20,6 +26,10 @@
     <li>可以增加收藏餐廳名單</li>
     <li>可以更新收藏餐廳名單</li>
     <li>可以刪除收藏餐廳名單</li>
+    <li>增加註冊功能</li>
+    <li>增加登入功能</li>
+    <li>密碼雜湊功能</li>
+    <li>Facebook登入功能</li>
   </ul>
   
 # Demo View
@@ -65,6 +75,9 @@ touch .env;
 ```jsx
 //.env
 SESSION_SECRET=skip;
+FACEBOOK_CLIENT_ID=skip;
+FACEBOOK_CLIENT_CECRET=skip;
+FACEBOOK_CALLBACK_URL=skip;
 ```
 並且在terminal 根據作業系統設定環境變數NODE_ENV
 

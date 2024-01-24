@@ -17,12 +17,12 @@
                 <div class="input-group mb-2 ">
                     <span class="input-group-text">password</span>
                     <input type="password" aria-label="password" class="form-control" name="password" minlength="4"
-                        maxlength="12" placeholder='請輸入password'>
+                        maxlength="12" placeholder='請輸入password' required>
                 </div>
                 <div class="input-group mb-2 ">
                     <span class="input-group-text">confirm password</span>
                     <input type="password" aria-label="confirmPassword" class="form-control" name="confirmPassword"
-                        minlength="4" maxlength="12" placeholder='請輸入相同的password'>
+                        minlength="4" maxlength="12" placeholder='請輸入相同的password' required>
                 </div>
                 <div class="input-group-append">
                     <button class="btn btn-major" type="submit" id="submit_button"> 註冊 <i class="fas fa-search"></i>
@@ -32,7 +32,7 @@
         </form>
         <div class="w-50 container mt-2 p-1">
             <form action="/login/facebook" method="GET" class="d-flex justify-content-start">
-                <button class="btn btn-major" type="submit">Facebook Login</button>
+                <button class="btn btn-major" type="submit">Facebook register</button>
             </form>
         </div>
     </div>

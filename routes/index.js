@@ -1,11 +1,11 @@
 const express = require('express')
 const router = express.Router()
+const authHandler = require('../middlewares/auth-handler')
 
 const restaurant = require('./routers')
 const user = require('./user')
 const passport = require('passport')
 
-const authHandler = require('../middlewares/auth-handler')
 
 router.use('/restaurants', authHandler, restaurant)
 router.use('/user', user)
