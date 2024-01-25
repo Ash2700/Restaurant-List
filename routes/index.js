@@ -10,10 +10,13 @@ const passport = require('passport')
 router.use('/restaurants', authHandler, restaurant)
 router.use('/user', user)
 
-router.get('/', (req, res) => {
-  res.redirect('/login')
-})
 
+
+router.get('/',passport.authenticate('local',{
+  successRedirect: '/restaurants',
+  failureRedirect: '/login',
+  failureFlash: true
+}))
 router.get('/login', (req, res) => {
   res.render('login')
 })
