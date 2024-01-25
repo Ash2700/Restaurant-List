@@ -19,23 +19,25 @@
               </div>
             </div>
           </form>
-          <a class="btn btn-major" href="/restaurants/add" role="button" aria-expanded="add-favorite button"
-            aria-controls="collapseExample">
-            Create
-          </a>
-          <div class="dropdown">
-            <a class="btn btn-major dropdown-toggle" href="/restaurants" role="button" id="dropdownMenuLink"
-              data-bs-toggle="dropdown" aria-expanded="false">
-              Sort By
+          <div>
+            <a class="btn btn-major d-inline-flex" href="/restaurants/add" role="button" aria-expanded="add-favorite button"
+              aria-controls="collapseExample">
+              Create
             </a>
+            <div class="dropdown d-inline-flex">
+              <a class="btn btn-major dropdown-toggle" href="/restaurants" role="button" id="dropdownMenuLink"
+                data-bs-toggle="dropdown" aria-expanded="false">
+                Sort By
+              </a>
 
-            <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
-              <li><a class="dropdown-item" href="/restaurants?select=name">Name</a></li>
-              <li><a class="dropdown-item" href="/restaurants?select=name&deration=DESC">Name(reverse)</a></li>
-              <li><a class="dropdown-item" href="/restaurants?select=category">category</a></li>
-              <li><a class="dropdown-item" href="/restaurants?select=rating">Rating</a></li>
-              <li><a class="dropdown-item" href="/restaurants?select=rating&deration=DESC">Rating(reverse)</a></li>
-            </ul>
+              <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink">
+                <li><a class="dropdown-item" href="/restaurants?select=name">Name</a></li>
+                <li><a class="dropdown-item" href="/restaurants?select=name&deration=DESC">Name(reverse)</a></li>
+                <li><a class="dropdown-item" href="/restaurants?select=category">category</a></li>
+                <li><a class="dropdown-item" href="/restaurants?select=rating">Rating</a></li>
+                <li><a class="dropdown-item" href="/restaurants?select=rating&deration=DESC">Rating(reverse)</a></li>
+              </ul>
+            </div>
           </div>
         </div>
       </footer>

@@ -8,7 +8,7 @@ const Users = db.Users
 router.post('/register', async (req, res, next) => {
   const { name, email, password, confirmPassword } = req.body
   const hash = await bcrypt.hash(password, 10)
-  const isEmailRegister = Users.count({ where: { email } })
+  const isEmailRegister = await Users.count({ where: { email } })
 
   if (!email || !password) {
     req.flash('error', 'email或密碼為必填')
