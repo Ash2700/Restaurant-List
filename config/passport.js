@@ -10,7 +10,7 @@ passport.use(new LocalStrategy({ usernameField: 'email' },
   async (username, password, done) => {
     try {
       const user = await Users.findOne({
-        attritebus: ['id', 'name', 'password', 'email'],
+        attributes: ['id', 'name', 'password', 'email'],
         where: { email: username },
         raw: true
       })

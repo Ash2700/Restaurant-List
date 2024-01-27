@@ -12,11 +12,7 @@ router.use('/user', user)
 
 
 
-router.get('/',passport.authenticate('local',{
-  successRedirect: '/restaurants',
-  failureRedirect: '/login',
-  failureFlash: true
-}))
+
 router.get('/login', (req, res) => {
   res.render('login')
 })
